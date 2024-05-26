@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const cors = require("cors");
 require("dotenv").config();
-const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
+const MONGODB_LOCAL_URI_PROD = process.env.MONGODB_LOCAL_URI_PROD;
 
 const app = express();
 
@@ -13,10 +13,10 @@ app.use(bodyParser.json());
 app.use("/api", indexRouter);
 app.use(express.urlencoded({ extended: true }));
 
-const mongoUrI = MONGODB_URI_PROD;
+const mongoUrI = MONGODB_LOCAL_URI_PROD;
 
 mongoose
-    .connect(mongoUrI, { useNewUrlParser: true })
+    .connect(mongoUrI)
     .then(() => {
         console.log("mongoose connected");
     })
@@ -24,6 +24,6 @@ mongoose
         console.log(err);
     });
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5001, () => {
     console.log("server connected");
 });
