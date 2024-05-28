@@ -1,6 +1,7 @@
 const User = require("../model/User");
 const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
+const add = 0;
 
 const userController = {};
 
