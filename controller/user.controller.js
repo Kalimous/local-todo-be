@@ -41,7 +41,20 @@ userController.loginWithEmail = async (req, res) => {
             throw new Error("계정이 존재하지 않습니다.");
         }
     } catch (err) {
-        res.status(400).json({ message: err.message, error: err.message });
+        res.status(400).json({ status: "fail", message: err.message }); // 누락된 닫는 중괄호 및 소괄호 추가
+    }
+};
+
+userController.getUser = async (req, res) => {
+    try {
+        const { userId } = req;
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error("유저를 찾을 수 없습니다.");
+        }
+        res.status(200).json({ status: "success", user });
+    } catch (err) {
+        res.status(400).json({ status: "fail", message: err.message });
     }
 };
 

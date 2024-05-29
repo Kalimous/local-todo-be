@@ -1,14 +1,15 @@
-const express = require('express');
-const taskController = require('../controller/task.controller');
+const express = require("express");
+const taskController = require("../controller/task.controller");
+const authController = require("../controller/auth.controller");
 const router = express.Router();
-router.use(express.urlencoded({extended: true}))
+router.use(express.urlencoded({ extended: true }));
 
-router.get('/', taskController.getTask)
+router.get("/", taskController.getTask);
 
-router.post('/', taskController.createTask)
+router.post("/", authController.authenticate, taskController.createTask);
 
-router.put('/:id', taskController.updateTask)
+router.put("/:id", taskController.updateTask);
 
-router.delete('/:id', taskController.deleteTask)
+router.delete("/:id", taskController.deleteTask);
 
 module.exports = router;
